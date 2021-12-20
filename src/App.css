@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,71 @@
   to {
     transform: rotate(360deg);
   }
+} */
+body{
+  background: black;
+  font-family: 'Montserrat', sans-serif;
+}
+.App{
+  margin:3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(15rem,1fr));
+  justify-items: stretch;
+  align-items: baseline;
+  border: 6px dotted white;
+  border-top-left-radius: 4rem;
+  border-bottom-right-radius:4rem;
+  padding:1rem;
+  overflow: auto;
+  color:white;
+  max-width: 52rem;
+}
+input{
+  padding:0.5rem;
+  border-radius:0.5rem;
+}
+button{
+  padding:0.5rem;
+  border-radius:0.5rem;
+  border:2px solid white;
+}
+.status-and-tasks-grid{
+  border-radius: 1rem;
+  border-right:3px solid white;
+  border-left:3px solid white;
+  padding:0rem 1rem 1rem 1rem;
+}
+.addTask{
+  display:grid;
+  grid-template-columns: 1fr;
+  justify-items: end;
+  padding-bottom: 2rem;
+  margin:0rem 1rem 0rem 0rem;
+}
+.addTask>button{
+  background:green;
+  color:white;
+}
+
+.taskStatus{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(6rem,1fr));
+  justify-content:start;
+  gap:0.5rem;
+  margin-bottom:1rem;
+}
+.taskStatus>button:nth-child(1){
+  background:gold;
+  color:black;
+}
+.taskStatus>button:nth-child(2){
+  background:red;
+  color:white;
+}
+.taskStatus>button:nth-child(3){
+  background:green;
+  color:white;
+}
+.tasks{
+  padding:0rem 0rem 1rem 0rem;
 }

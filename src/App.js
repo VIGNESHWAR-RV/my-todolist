@@ -1,25 +1,115 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react'
+
 
 function App() {
+
+  //default tasks
+  const defaultTasks = [{check:false,task:'Create Theme'},
+                      {check:false,task:'Work on WordPress'},
+                      {check:false,task:'Organize office main department'},
+                      {check:false,task:'Error solve in HTML template'}];
+ 
+  //hooks for new tasks
+  const [taskList,addTask] = useState(defaultTasks);
+  const [typedTask,adding]=useState({check:false});
+  
+  //conditional rendering for conditional rendering
+const [show,setShow] = useState(true);
+const [show1,setShow1] = useState(false);
+const [show2,setshow2] = useState(false);
+
+//function to show tasks based on the status
+function All({type}){
+  return (taskList.map(({check,task},index)=><Display key={index} check={check} task={task} type={type}/>));
+}
+
+//function to render the tasks
+function Display({check , task , type}){
+  const [strike,striking] = useState(check);
+  const style = {display:(strike)?"none":"block"}
+  const style1 = {display:(strike)?"block" : "none"}
+  
+return(
+  <div className="tasks">
+  {(type==="All")
+  ?
+  <div>
+   {check  ? <div><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
+                                         for(let i of taskList){
+                                           if(i.task===task){
+                                               i.check = !strike;
+                                           }
+                                         };
+                                         }}/>{(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}</div>
+            :  <div><input type="checkbox" onClick={()=>{striking(!strike); 
+              for(let i of taskList){
+                if(i.task===task){
+                    i.check = !strike;
+                }
+              };
+              }}/>{(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}</div>
+              }
+     
+  </div> 
+  : ""}
+  {(type==="Active") 
+    ? (check===false)
+       ?<div style={style}>
+          <input type="checkbox" onClick={()=>{striking(!strike); 
+                                         for(let i of taskList){
+                                           if(i.task===task){
+                                               i.check = true;
+                                           }
+                                         }
+                                         }}/>
+           <span>{task}</span>
+       </div>
+       : ""
+    : ""}
+  {(type==="Completed")
+    ? (check===true)
+       ?<div style={style1}>
+         <input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
+                                        for(let i of taskList){
+                                          if(i.task===task){
+                                              i.check = false;
+                                          }
+                                        }
+                                        }}/>
+          <span><strike>{task}</strike></span>
+      </div>
+        :""
+    :""}
+</div>
+);
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Here's your TODO List</h1>
+      <div className="addTask-grid">
+      <div className="addTask">
+       <input placeholder="Enter the TASK" onChange={(event)=>adding({...typedTask, task:(event.target.value)})}/>
+       <button className="button" onClick={()=>{(typedTask.task!==undefined)?addTask([...taskList,typedTask]):alert("Enter task to add")}}>Add</button>
+       </div>
+      </div>
+       <div className="status-and-tasks-grid">
+         <div className="taskStatus">
+       <button onClick={()=>{setShow(true);setShow1(false);setshow2(false)}}>All</button>
+       <button onClick={()=>{setShow(false);setShow1(true);setshow2(false)}}>Active</button>
+       <button onClick={()=>{setShow(false);setShow1(false);setshow2(true)}}>Completed</button>
+         </div>
+         { (show) ? <All key="All" type="All"/> : ""}
+         { (show1) ? <All key="Active" type="Active"/> :""}
+         { (show2) ? <All key="Completed" type="Completed"/> : ""}
+       </div>
     </div>
   );
 }
+
+
+
 
 export default App;
