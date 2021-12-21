@@ -20,71 +20,49 @@ const [show,setShow] = useState(true);
 const [show1,setShow1] = useState(false);
 const [show2,setshow2] = useState(false);
 
-//function to show tasks based on the status
-function All({type}){
-  return (taskList.map(({check,task},index)=><Display key={index} check={check} task={task} type={type}/>));
-}
-
+ 
 //function to render the tasks
-function Display({check , task , type}){
+function Display({check , task , type }){
   const [strike,striking] = useState(check);
-  const style = {display:(strike)?"none":"block"}
-  const style1 = {display:(strike)?"block" : "none"}
-  
+  const style = {display:(strike)?"none":"block"};
+  const style1 = {display:(strike)?"block":"none"};
 return(
   <div className="tasks">
-  {(type==="All")
-  ?
-  <div>
-   {check  ? <div><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
-                                         for(let i of taskList){
-                                           if(i.task===task){
-                                               i.check = !strike;
-                                           }
-                                         };
-                                         }}/>{(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}</div>
-            :  <div><input type="checkbox" onClick={()=>{striking(!strike); 
-              for(let i of taskList){
-                if(i.task===task){
-                    i.check = !strike;
-                }
-              };
-              }}/>{(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}</div>
-              }
-     
-  </div> 
-  : ""}
-  {(type==="Active") 
-    ? (check===false)
-       ?<div style={style}>
-          <input type="checkbox" onClick={()=>{striking(!strike); 
-                                         for(let i of taskList){
-                                           if(i.task===task){
-                                               i.check = true;
-                                           }
-                                         }
-                                         }}/>
-           <span>{task}</span>
-       </div>
-       : ""
-    : ""}
-  {(type==="Completed")
-    ? (check===true)
-       ?<div style={style1}>
-         <input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
-                                        for(let i of taskList){
-                                          if(i.task===task){
-                                              i.check = false;
-                                          }
-                                        }
-                                        }}/>
-          <span><strike>{task}</strike></span>
-      </div>
-        :""
-    :""}
-</div>
-);
-}
+ 
+        
+   {(type==="filter") 
+     ? (check===false)
+           ?<div style={style}>
+               <input type="checkbox" onClick={()=>{striking(!strike); 
+                                              for(let i of taskList){
+                                                if(i.task===task){
+                                                    i.check = true;
+                                                }};}}/>
+                <span>{task}</span>
+            </div>
+           : (check===true)
+              ?<div style={style1}>
+                <input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
+                                               for(let i of taskList){
+                                                 if(i.task===task){
+                                                     i.check = false;
+                                                 }};}}/>
+                 <span><strike>{task}</strike></span></div>
+           :""
+     :  (check)  
+              ? <div><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
+                                               for(let i of taskList){
+                                                 if(i.task===task){
+                                                   i.check = !strike;
+                                                 }};}}/>
+                {(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}</div>
+              :  <div><input type="checkbox" onClick={()=>{striking(!strike); 
+                                                 for(let i of taskList){
+                                                 if(i.task===task){
+                                                   i.check = !strike;
+                                                 }};}}/>
+               {(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}</div>} 
+  </div>);}
 
   return (
     <div className="App">
@@ -101,9 +79,9 @@ return(
        <button onClick={()=>{setShow(false);setShow1(true);setshow2(false)}}>Active</button>
        <button onClick={()=>{setShow(false);setShow1(false);setshow2(true)}}>Completed</button>
          </div>
-         { (show) ? <All key="All" type="All"/> : ""}
-         { (show1) ? <All key="Active" type="Active"/> :""}
-         { (show2) ? <All key="Completed" type="Completed"/> : ""}
+         { (show) ? (taskList.map(({check,task},index)=><Display key={index} check={check} task={task} type="All" />)) : ""}
+         { (show1) ? (taskList.filter((task)=>{return(task.check===false)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter" />)) :""}
+         { (show2) ? (taskList.filter((task)=>{return(task.check===true)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter"/>)) :""}
        </div>
     </div>
   );
