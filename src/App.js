@@ -22,10 +22,17 @@ const [show2,setshow2] = useState(false);
 
  
 //function to render the tasks
-function Display({check , task , type }){
+function Display({check , task , type , id , remove}){
   const [strike,striking] = useState(check);
   const style = {display:(strike)?"none":"block"};
   const style1 = {display:(strike)?"block":"none"};
+
+  const removing=(id)=>{
+      const removedList = taskList.filter((task,index)=>index!==id);
+      remove(removedList);
+  }
+
+
 return(
   <div className="tasks">
  
@@ -55,13 +62,15 @@ return(
                                                  if(i.task===task){
                                                    i.check = !strike;
                                                  }};}}/>
-                {(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}</div>
+                {(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}
+                <button onClick={()=>removing(id)}>Remove</button></div>
               :  <div><input type="checkbox" onClick={()=>{striking(!strike); 
                                                  for(let i of taskList){
                                                  if(i.task===task){
                                                    i.check = !strike;
                                                  }};}}/>
-               {(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}</div>} 
+               {(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}
+               <button onClick={()=>removing(id)}>Remove</button></div>} 
   </div>);}
 
   return (
@@ -79,7 +88,7 @@ return(
        <button onClick={()=>{setShow(false);setShow1(true);setshow2(false)}}>Active</button>
        <button onClick={()=>{setShow(false);setShow1(false);setshow2(true)}}>Completed</button>
          </div>
-         { (show) ? (taskList.map(({check,task},index)=><Display key={index} check={check} task={task} type="All" />)) : ""}
+         { (show) ? (taskList.map(({check,task},index)=><Display key={index} id={index} check={check} task={task} remove={addTask} type="All" />)) : ""}
          { (show1) ? (taskList.filter((task)=>{return(task.check===false)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter" />)) :""}
          { (show2) ? (taskList.filter((task)=>{return(task.check===true)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter"/>)) :""}
        </div>
