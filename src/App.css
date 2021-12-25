@@ -103,3 +103,8 @@ button{
 .tasks{
   padding:0rem 0rem 1rem 0rem;
 }
+.task{
+  display:grid;
+  grid-template-columns: 0.5fr 2fr 1fr;
+  align-items: baseline;
+}

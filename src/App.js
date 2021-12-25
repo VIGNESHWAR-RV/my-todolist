@@ -39,7 +39,7 @@ return(
         
    {(type==="filter") 
      ? (check===false)
-           ?<div style={style}>
+           ?<div style={style} className="task">
                <input type="checkbox" onClick={()=>{striking(!strike); 
                                               for(let i of taskList){
                                                 if(i.task===task){
@@ -48,7 +48,7 @@ return(
                 <span>{task}</span>
             </div>
            : (check===true)
-              ?<div style={style1}>
+              ?<div style={style1} className="task">
                 <input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
                                                for(let i of taskList){
                                                  if(i.task===task){
@@ -57,14 +57,14 @@ return(
                  <span><strike>{task}</strike></span></div>
            :""
      :  (check)  
-              ? <div><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
+              ? <div classname="task"><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
                                                for(let i of taskList){
                                                  if(i.task===task){
                                                    i.check = !strike;
                                                  }};}}/>
                 {(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}
                 <button onClick={()=>removing(id)}>Remove</button></div>
-              :  <div><input type="checkbox" onClick={()=>{striking(!strike); 
+              :  <div className="task"><input type="checkbox" onClick={()=>{striking(!strike); 
                                                  for(let i of taskList){
                                                  if(i.task===task){
                                                    i.check = !strike;
