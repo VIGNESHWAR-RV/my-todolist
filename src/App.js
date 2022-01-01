@@ -12,8 +12,8 @@ function App() {
                       {check:false,task:'Error solve in HTML template'}];
  
   //hooks for new tasks
-  const [taskList,addTask] = useState(defaultTasks);
-  const [typedTask,adding]=useState({check:false});
+  const [taskList,addTask] = useState(defaultTasks);  
+  const [typedTask,adding]=useState({});
   
   //conditional rendering for conditional rendering
 const [show,setShow] = useState(true);
@@ -64,7 +64,7 @@ return(
                                                  }};}}/>
                 {(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}
                 <button onClick={()=>removing(id)}>Remove</button></div>
-              :  <div className="task"><input type="checkbox" onClick={()=>{striking(!strike); 
+              : <div className="task"><input type="checkbox" onClick={()=>{striking(!strike); 
                                                  for(let i of taskList){
                                                  if(i.task===task){
                                                    i.check = !strike;
@@ -78,7 +78,7 @@ return(
       <h1>Here's your TODO List</h1>
       <div className="addTask-grid">
       <div className="addTask">
-       <input placeholder="Enter the TASK" onChange={(event)=>adding({...typedTask, task:(event.target.value)})}/>
+       <input placeholder="Enter the TASK" onChange={(event)=>adding({check:false, task:(event.target.value)})}/>
        <button className="button" onClick={()=>{(typedTask.task!==undefined)?addTask([...taskList,typedTask]):alert("Enter task to add")}}>Add</button>
        </div>
       </div>
@@ -88,9 +88,11 @@ return(
        <button onClick={()=>{setShow(false);setShow1(true);setshow2(false)}}>Active</button>
        <button onClick={()=>{setShow(false);setShow1(false);setshow2(true)}}>Completed</button>
          </div>
-         { (show) ? (taskList.map(({check,task},index)=><Display key={index} id={index} check={check} task={task} remove={addTask} type="All" />)) : ""}
-         { (show1) ? (taskList.filter((task)=>{return(task.check===false)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter" />)) :""}
-         { (show2) ? (taskList.filter((task)=>{return(task.check===true)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter"/>)) :""}
+         {(show) ? (taskList.map(({check,task},index)=><Display key={index} id={index} check={check} task={task} remove={addTask} type="All" />)) : ""}
+
+         {(show1) ? (taskList.filter((task)=>{return(task.check===false)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter" />)) :""}
+         
+         {(show2) ? (taskList.filter((task)=>{return(task.check===true)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter"/>)) :""}
        </div>
     </div>
   );
