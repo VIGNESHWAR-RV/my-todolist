@@ -41,33 +41,33 @@ return(
      ? (check===false)
            ?<div style={style} className="task">
                <input type="checkbox" onClick={()=>{striking(!strike); 
-                                              for(let i in taskList){
-                                                if(i === id){
-                                                    taskList(i).check = true;
+                                              for(let i of taskList){
+                                                if(i.task===task){
+                                                    i.check = true;
                                                 }};}}/>
                 <span>{task}</span>
             </div>
            : (check===true)
               ?<div style={style1} className="task">
                 <input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
-                                               for(let i in taskList){
-                                                 if(i === id){
-                                                  taskList(i).check = true;
+                                               for(let i of taskList){
+                                                 if(i.task===task){
+                                                     i.check = false;
                                                  }};}}/>
                  <span><strike>{task}</strike></span></div>
            :""
      :  (check)  
               ? <div classname="task"><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
-                                               for(let i in taskList){
-                                                 if(i === id){
-                                                  taskList(i).check = !strike;
+                                               for(let i of taskList){
+                                                 if(i.task===task){
+                                                   i.check = !strike;
                                                  }};}}/>
                 {(strike)?<span><strike>{task}</strike></span>:<span>{task}</span>}
                 <button onClick={()=>removing(id)}>Remove</button></div>
               : <div className="task"><input type="checkbox" onClick={()=>{striking(!strike); 
-                                                 for(let i in taskList){
-                                                 if(i === id){
-                                                  taskList(i).check = !strike;
+                                                 for(let i of taskList){
+                                                 if(i.task===task){
+                                                   i.check = !strike;
                                                  }};}}/>
                {(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}
                <button onClick={()=>removing(id)}>Remove</button></div>} 
