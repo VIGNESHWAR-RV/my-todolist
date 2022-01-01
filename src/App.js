@@ -93,9 +93,9 @@ return(
          </div>
          {(show) ? (taskList.map(({check,task},index)=><Display key={index} id={index} check={check} task={task} remove={addTask} type="All" />)) : ""}
 
-         {(show1) ? (taskList.filter((task)=>{return(task.check===false)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter" />)) :""}
+         {(show1) ? (taskList.filter((task)=>{return(task.check===false)}).map(({task,check},index)=><Display key={index} check={check} task={task} remove={addTask} type="filter" />)) :""}
          
-         {(show2) ? (taskList.filter((task)=>{return(task.check===true)}).map(({task,check},index)=><Display key={index} check={check} task={task} type="filter"/>)) :""}
+         {(show2) ? (taskList.filter((task)=>{return(task.check===true)}).map(({task,check},index)=><Display key={index} check={check} task={task} remove={addTask} type="filter"/>)) :""}
        </div>
     </div>
   );
