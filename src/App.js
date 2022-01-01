@@ -46,6 +46,7 @@ return(
                                                     i.check = true;
                                                 }};}}/>
                 <span>{task}</span>
+                <button onClick={()=>removing(id)}>Remove</button>
             </div>
            : (check===true)
               ?<div style={style1} className="task">
@@ -54,7 +55,9 @@ return(
                                                  if(i.task===task){
                                                      i.check = false;
                                                  }};}}/>
-                 <span><strike>{task}</strike></span></div>
+                 <span><strike>{task}</strike></span>
+                 <button onClick={()=>removing(id)}>Remove</button>
+                 </div>
            :""
      :  (check)  
               ? <div classname="task"><input type="checkbox" defaultChecked onClick={()=>{striking(!strike); 
