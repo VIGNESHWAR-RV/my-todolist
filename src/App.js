@@ -74,14 +74,14 @@ return(
                {(strike)?<span><strike>{task}</strike></span> :<span>{task}</span>}
                <button onClick={()=>removing(id)}>Remove</button></div>} 
   </div>);}
-
+ 
   return (
     <div className="App">
       <h1>Here's your TODO List</h1>
       <div className="addTask-grid">
       <div className="addTask">
        <input placeholder="Enter the TASK" onChange={(event)=>adding({check:false, task:(event.target.value)})}/>
-       <button className="button" onClick={()=>{(typedTask.task!==undefined)?addTask([...taskList,typedTask]):alert("Enter task to add")}}>Add</button>
+       <button className="button" onClick={()=>{(typedTask.task!==undefined)?addTask([...taskList,typedTask]):alert("Enter task to add");}}>Add</button>
        </div>
       </div>
        <div className="status-and-tasks-grid">
